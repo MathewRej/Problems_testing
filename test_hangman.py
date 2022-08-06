@@ -51,7 +51,14 @@ def test_mask_word_single_guesses():
 def test_mask_word_multiple_guesses():
     assert hangman.mask_word('elephant', ['e', 'l',]) == 'ele-----'
     assert hangman.mask_word('madam', ['m', 'a', 'd',]) == 'madam'
-
+def test_get_status():
+    secret_word = "police"
+    guessed_letters = ["o", "j"]
+    turns_left = 5
+    status = hangman.get_status(secret_word, guessed_letters, turns_left)
+    assert status == f"""{hangman.mask_word(secret_word, guessed_letters)}
+    Guessed Letters: {" ".join(guessed_letters)}
+    Turns Left: {turns_left}"""
 
 
 

@@ -22,3 +22,7 @@ def mask_word(secret_word, guessed_letters):
         else:
             masked_word += '-'
     return masked_word
+def get_status(secret_word, guessed_letters, turns_left):
+    return f"""{mask_word(secret_word, guessed_letters)}
+    Guessed Letters: {" ".join(guessed_letters)}
+    Turns Left: {turns_left}"""
