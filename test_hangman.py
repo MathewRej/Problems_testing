@@ -1,3 +1,4 @@
+
 import hangman
 import random
 random.seed(10)
@@ -67,7 +68,13 @@ def test_process_turn_already_guessed():
     assert hangman.process_turn(secret_word, current_guess, guessed_letters, turns_left ) == (f"You have already Guessed {current_guess}", turns_left, hangman.ALREADY_GUESSED)
 def test_process_turn_bad_guess():
     current_guess = "v"
-    secret_word = "police"
+    secret = 'police'
     guessed_letters = ["o", "j"]
     turns_left = 5
-    assert hangman.process_turn(secret_word, guessed_letters, current_guess, turns_left) == (f"Guessed Letters: {guessed_letters}", turns_left-1)
+    assert hangman.process_turn(secret, current_guess, guessed_letters, turns_left) == (turns_left -1, guessed_letters + ["v", ], hangman.BAD_GUESS)
+def test_process_turn_good_guess():
+    current_guess = "l"
+    secret_word = "police"
+    guessed_letters = ["p", "h", "i"]
+    turns_left = 5
+    assert hangman.process_turn(secret_word, current_guess, guessed_letters, turns_left) == (turns_left, guessed_letters + ["l", ], hangman.GOOD_GUESS)

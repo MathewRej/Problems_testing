@@ -1,6 +1,8 @@
 import random
 CONTINUE = 1
 ALREADY_GUESSED = 2
+BAD_GUESS =3
+GOOD_GUESS =4
 
 def get_random_word(path='/usr/share/dict/words'):
     good_words = []
@@ -32,3 +34,12 @@ def get_status(secret_word, guessed_letters, turns_left):
 def process_turn(secret_word, current_guess, guessed_letters, turns_left):
     if current_guess in guessed_letters:
         return f"You have already Guessed {current_guess}", turns_left, ALREADY_GUESSED
+    if current_guess not in secret_word:
+        print('currentg:', current_guess )
+        guessed_letters.append(current_guess)
+        turns_left-= 1
+        return turns_left, guessed_letters, BAD_GUESS
+
+    else:
+        guessed_letters.append(current_guess)
+        return turns_left, guessed_letters, GOOD_GUESS
