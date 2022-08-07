@@ -1,5 +1,4 @@
 import random
-from unittest import result
 CONTINUE = 1
 ALREADY_GUESSED = 2
 WON = 5
@@ -31,10 +30,10 @@ def get_status(secret_word, guessed_letters, turns_left):
     return f"""{mask_word(secret_word, guessed_letters)}
     Guessed Letters: {" ".join(guessed_letters)}
     Turns Left: {turns_left}"""
-
 def process_turn(secret_word, current_guess, guessed_letters, turns_left):
     if current_guess in guessed_letters:
-        return turns_left, ALREADY_GUESSED
+        print(f"You already guessed the letter '{current_guess}'")
+        return turns_left, ALREADY_GUESSED,
     if secret_word == mask_word(secret_word, guessed_letters + [current_guess]):
         return turns_left, WON
     if turns_left == 1:
@@ -42,12 +41,10 @@ def process_turn(secret_word, current_guess, guessed_letters, turns_left):
     if current_guess not in secret_word:
         guessed_letters.append(current_guess)
         turns_left-= 1
-        result = CONTINUE
-        return turns_left, result
+        return turns_left, CONTINUE
     else:
-        guessed_letters.append(current_guess)  
-        result = CONTINUE             
-        return turns_left, result
+        guessed_letters.append(current_guess)             
+        return turns_left, CONTINUE
 
 def main():
     secret_word = get_random_word()
@@ -59,10 +56,10 @@ def main():
         current_guess = input("Guess a letter:")
         turns_left, result = process_turn(secret_word, current_guess, guessed_letters, turns_left)
         if result == WON:
-            print(f"You WON the word is {secret_word}")
+            print(f"You WON, the word is {secret_word}")
             break
         if result == LOST:
-            print(f"You LOST, the word is {secret_word}")
+            print(f"You LOST, the word was {secret_word}")
             break
 if __name__ == "__main__":
     main()
