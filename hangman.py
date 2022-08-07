@@ -1,8 +1,7 @@
 import random
+from unittest import result
 CONTINUE = 1
 ALREADY_GUESSED = 2
-BAD_GUESS =3
-GOOD_GUESS =4
 WON = 5
 LOST = 6
 
@@ -37,14 +36,33 @@ def process_turn(secret_word, current_guess, guessed_letters, turns_left):
     if current_guess in guessed_letters:
         return turns_left, ALREADY_GUESSED
     if secret_word == mask_word(secret_word, guessed_letters + [current_guess]):
-        return guessed_letters, WON
+        return turns_left, WON
     if turns_left == 1:
-        return guessed_letters, LOST
+        return turns_left, LOST
     if current_guess not in secret_word:
         guessed_letters.append(current_guess)
         turns_left-= 1
-        return turns_left, BAD_GUESS
+        result = CONTINUE
+        return turns_left, result
     else:
-        guessed_letters.append(current_guess)                 
-        return turns_left, GOOD_GUESS
+        guessed_letters.append(current_guess)  
+        result = CONTINUE             
+        return turns_left, result
 
+def main():
+    secret_word = get_random_word()
+    turns_left = 7
+    guessed_letters = []
+    print(secret_word)
+    while True:
+        print(get_status(secret_word, guessed_letters, turns_left))
+        current_guess = input("Guess a letter:")
+        turns_left, result = process_turn(secret_word, current_guess, guessed_letters, turns_left)
+        if result == WON:
+            print(f"You WON the word is {secret_word}")
+            break
+        if result == LOST:
+            print(f"You LOST, the word is {secret_word}")
+            break
+if __name__ == "__main__":
+    main()

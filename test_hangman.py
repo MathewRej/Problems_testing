@@ -71,22 +71,22 @@ def test_process_turn_bad_guess():
     secret = 'police'
     guessed_letters = ["o", "j"]
     turns_left = 5
-    assert hangman.process_turn(secret, current_guess, guessed_letters, turns_left) == (turns_left -1, hangman.BAD_GUESS)
+    assert hangman.process_turn(secret, current_guess, guessed_letters, turns_left) == (turns_left -1, hangman.CONTINUE)
 def test_process_turn_good_guess():
     current_guess = "l"
     secret_word = "police"
     guessed_letters = ["p", "h", "i"]
     turns_left = 5
-    assert hangman.process_turn(secret_word, current_guess, guessed_letters, turns_left) == (turns_left, hangman.GOOD_GUESS)
+    assert hangman.process_turn(secret_word, current_guess, guessed_letters, turns_left) == (turns_left, hangman.CONTINUE)
 def test_process_turn_win():
     current_guess = "o"
     secret_word = "doctor"
     guessed_letters = ["g", "d", "c", "t", "i", "r"]
     turns_left = 5
-    assert hangman.process_turn(secret_word, current_guess, guessed_letters, turns_left) == (guessed_letters, hangman.WON)
+    assert hangman.process_turn(secret_word, current_guess, guessed_letters, turns_left) == (turns_left, hangman.WON)
 def test_process_turn_lost():
     current_guess = "u"
     secret_word = "apple"
     guessed_letters = ["a", "g", "s", "l", "w", "m", "q"]
     turns_left = 1
-    assert hangman.process_turn(secret_word, current_guess, guessed_letters, turns_left) == (guessed_letters, hangman.LOST)
+    assert hangman.process_turn(secret_word, current_guess, guessed_letters, turns_left) == (turns_left, hangman.LOST)
