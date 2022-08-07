@@ -78,3 +78,9 @@ def test_process_turn_good_guess():
     guessed_letters = ["p", "h", "i"]
     turns_left = 5
     assert hangman.process_turn(secret_word, current_guess, guessed_letters, turns_left) == (turns_left, hangman.GOOD_GUESS)
+def test_process_turn_win():
+    current_guess = "o"
+    secret_word = "doctor"
+    guessed_letters = ["g", "d", "c", "t", "i", "r"]
+    turns_left = 5
+    assert hangman.process_turn(secret_word, current_guess, guessed_letters, turns_left) == (guessed_letters, hangman.WIN)
