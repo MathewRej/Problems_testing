@@ -3,6 +3,8 @@ CONTINUE = 1
 ALREADY_GUESSED = 2
 BAD_GUESS =3
 GOOD_GUESS =4
+WON = 5
+LOST = 6
 
 def get_random_word(path='/usr/share/dict/words'):
     good_words = []
@@ -34,11 +36,17 @@ def get_status(secret_word, guessed_letters, turns_left):
 def process_turn(secret_word, current_guess, guessed_letters, turns_left):
     if current_guess in guessed_letters:
         return turns_left, ALREADY_GUESSED
+    if secret_word == mask_word(secret_word, guessed_letters + [current_guess]):
+        return guessed_letters, WON
+    # if turns_left == 1:
+    #     return guessed_letters, LOST
     if current_guess not in secret_word:
         guessed_letters.append(current_guess)
         turns_left-= 1
         return turns_left, BAD_GUESS
 
     else:
-        guessed_letters.append(current_guess)
+        guessed_letters.append(current_guess)                 
         return turns_left, GOOD_GUESS
+
+    
