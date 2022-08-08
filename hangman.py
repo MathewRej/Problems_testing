@@ -56,10 +56,10 @@ def main():
         current_guess = input("\tGuess a letter:")
         turns_left, result = process_turn(secret_word, current_guess, guessed_letters, turns_left)
         if result == WON:
-            print(f"You WON, the word is {secret_word}")
+            print(f"\nYou WON, the word is {secret_word}")
             break
         if result == LOST:
-            print(f"You LOST, the word was {secret_word}")
+            print(f"\nYou LOST, the word was {secret_word}")
             break
 if __name__ == "__main__":
     main()
