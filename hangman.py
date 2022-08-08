@@ -27,12 +27,12 @@ def mask_word(secret_word, guessed_letters):
             masked_word += '-'
     return masked_word
 def get_status(secret_word, guessed_letters, turns_left):
-    return f"""{mask_word(secret_word, guessed_letters)}
-    Guessed Letters: {" ".join(guessed_letters)}
-    Turns Left: {turns_left}"""
+    return f"""\n{mask_word(secret_word, guessed_letters)}
+    \n\tGuessed Letters: {" ".join(guessed_letters)}
+    \tTurns Left: {turns_left}"""
 def process_turn(secret_word, current_guess, guessed_letters, turns_left):
     if current_guess in guessed_letters:
-        print(f"You already guessed the letter '{current_guess}'")
+        print(f"\nYou already guessed the letter '{current_guess}'")
         return turns_left, ALREADY_GUESSED,
     if secret_word == mask_word(secret_word, guessed_letters + [current_guess]):
         return turns_left, WON
@@ -53,7 +53,7 @@ def main():
     print(secret_word)
     while True:
         print(get_status(secret_word, guessed_letters, turns_left))
-        current_guess = input("Guess a letter:")
+        current_guess = input("\tGuess a letter:")
         turns_left, result = process_turn(secret_word, current_guess, guessed_letters, turns_left)
         if result == WON:
             print(f"You WON, the word is {secret_word}")
